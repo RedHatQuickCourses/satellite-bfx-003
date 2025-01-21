@@ -1,6 +1,6 @@
 site:
-  title: FIXME Course Title
-  start_page: REPLACEREPONAME::index.adoc
+  title: Red Hat Satellite Break-fix Practice 3 (FIXME)
+  start_page: satellite-bfx-003::index.adoc
 
 content:
   sources:
