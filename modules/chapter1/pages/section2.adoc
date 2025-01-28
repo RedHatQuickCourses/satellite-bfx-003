@@ -2,7 +2,11 @@
 
 == Follow below steps in the lab to check your work
 
-FIXME: Add the instructions to be followed in the lab environment to make sure the problem has been resolved. You may chose to remove this block if grading script is provided in the lab to check the work.
+- Widgets on home page of Satellite is working fine and satellite web ui is accessible. +
+- Hammer ping & satellite services are running fine. +
+- Correct performace tuning profile is set. +
+- Performance defining parameters are correctly set for satellite according to the provided resources. +
+- Repos are syncing successfully on satellite.
 
 == Check your work using the grading script
 
