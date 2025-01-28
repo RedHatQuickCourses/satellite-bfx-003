@@ -131,7 +131,71 @@
 <article class="doc">
 <h1 class="page">Guided solution (page 1 of 2)</h1>
 <div class="paragraph">
-<p>FIXME: Provide step-by-step instructions here to resolve the issue.</p>
+<p><strong>ISSUE</strong><br>
+- # hammer ping fails with:<br></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>candlepin:
+    Status:          FAIL
+    Server Response: Message: Failed to open TCP connection to localhost:23443 (Connection refused - connect(2) for "localhost" port 23443)
+candlepin_auth:
+    Status:          FAIL
+    Server Response: Message: A backend service [ Candlepin ] is unreachable
+candlepin_events:
+    Status:          FAIL
+    message:         Not running</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Widgets on satellite web ui are not loading properly.<br></p>
+</li>
+<li>
+<p>messages show the below which indicates issue with making connections to db as well<br>
+FATAL:  remaining connection slots are reserved for non-replication superuser connections</p>
+</li>
+<li>
+<p>Checking the parameters in <code>/etc/foreman-installer/scenarios.d/satellite-answers.yaml</code> we can see the below parameters misconfigured:<br></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>foreman-foreman-service-puma-threads-min=300
+foreman-foreman-service-puma-threads-max=300
+foreman-foreman-service-puma-workers=120
+foreman-db-pool=300
+foreman-proxy-content-pulpcore-worker-count=10</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>FIX</strong><br>
+According to official doc for performance tuning of Satellite 6.15 for system with 64GB RAM and 8 VCPUs we should have:<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>medium tuning profile should be selected<br></p>
+</li>
+<li>
+<p>Recommended Puma Threads for both min &amp; max is 16<br></p>
+</li>
+<li>
+<p>Recommended Puma Workers is 8 – 12<br></p>
+</li>
+<li>
+<p>Value for pulpcore worker should be max 8<br></p>
+</li>
+<li>
+<p>The effective value of $db_pool is automatically set to equal $foreman::foreman_service_puma_threads_max<br></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Combining the above we may run:<br>
+<code># satellite-installer --foreman-foreman-service-puma-threads-min=16 --foreman-foreman-service-puma-threads-max=16 --foreman-foreman-service-puma-workers=12 --foreman-db-pool=16 --foreman-proxy-content-pulpcore-worker-count=8 --tuning medium</code></p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Guided solution</a></span>
