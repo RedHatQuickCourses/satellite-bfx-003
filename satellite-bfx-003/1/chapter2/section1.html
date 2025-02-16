@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Guided solution (page 1 of 2) :: Red Hat Satellite Break-fix Practice 3 (FIXME)</title>
+    <title>Guided solution (page 1 of 2) :: Break-fix Practice Fixing &amp; optimizing performance on Red Hat Satellite 6</title>
     <link rel="prev" href="index.html">
     <link rel="next" href="section2.html">
     <meta name="generator" content="Antora 3.1.3">
@@ -15,7 +15,7 @@
   <nav class="navbar">
     <div class="navbar-brand">
       <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
-      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Red Hat Satellite Break-fix Practice 3 (FIXME)</a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Break-fix Practice Fixing &amp; optimizing performance on Red Hat Satellite 6</a>
       <button class="navbar-burger" data-target="topbar-nav">
         <span></span>
         <span></span>
@@ -35,7 +35,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Red Hat Satellite Break-fix Practice 3 (FIXME)</a></h3>
+    <h3 class="title"><a href="../index.html">Break-fix Practice Fixing &amp; optimizing performance on Red Hat Satellite 6</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -95,12 +95,12 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Red Hat Satellite Break-fix Practice 3 (FIXME)</span>
+    <span class="title">Break-fix Practice Fixing &amp; optimizing performance on Red Hat Satellite 6</span>
     <span class="version">1</span>
   </div>
   <ul class="components">
     <li class="component is-current">
-      <a class="title" href="../index.html">Red Hat Satellite Break-fix Practice 3 (FIXME)</a>
+      <a class="title" href="../index.html">Break-fix Practice Fixing & optimizing performance on Red Hat Satellite 6</a>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">1</a>
@@ -118,7 +118,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Red Hat Satellite Break-fix Practice 3 (FIXME)</a></li>
+    <li><a href="../index.html">Break-fix Practice Fixing & optimizing performance on Red Hat Satellite 6</a></li>
     <li><a href="index.html">Guided solution</a></li>
     <li><a href="section1.html">Guided solution (page 1 of 2)</a></li>
   </ul>
@@ -130,11 +130,48 @@
 </aside>
 <article class="doc">
 <h1 class="page">Guided solution (page 1 of 2)</h1>
+<div class="sect1">
+<h2 id="_objectives"><a class="anchor" href="#_objectives"></a>Objectives</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Investigate what are the performance issues in satellite.</p>
+</li>
+<li>
+<p>Solve the performance issue by fixing some parameters of satellite in the hands-on lab environment.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_instructions"><a class="anchor" href="#_instructions"></a>Instructions</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p><strong>ISSUE</strong><br>
-- # hammer ping fails with:<br></p>
+<p>Run following instructions on <code>satellite</code> system with <code>root</code> as user.</p>
 </div>
 <div class="listingblock">
+<div class="title">Sample output:</div>
+<div class="content">
+<pre>[ec2-user@satellite ~]$ sudo su -
+[root@satellite ~]#</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>ISSUE: Try running</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hammer ping</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>it fails with:</p>
+</div>
+<div class="listingblock">
+<div class="title">Sample output:</div>
 <div class="content">
 <pre>candlepin:
     Status:          FAIL
@@ -147,14 +184,25 @@ candlepin_events:
     message:         Not running</pre>
 </div>
 </div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Also</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Widgets on satellite web ui are not loading properly.<br></p>
+<p>Widgets on <code>satellite web ui</code> [the page presented after logging into satellite] are not loading properly.<br></p>
 </li>
 <li>
-<p>messages show the below which indicates issue with making connections to db as well<br>
-FATAL:  remaining connection slots are reserved for non-replication superuser connections</p>
+<p><code>/var/log/messages</code> show the below which indicates issue with making connections to db as well</p>
+<div class="listingblock">
+<div class="title">Sample Output:</div>
+<div class="content">
+<pre>FATAL:  remaining connection slots are reserved for non-replication superuser connections</pre>
+</div>
+</div>
 </li>
 <li>
 <p>Checking the parameters in <code>/etc/foreman-installer/scenarios.d/satellite-answers.yaml</code> we can see the below parameters misconfigured:<br></p>
@@ -163,16 +211,15 @@ FATAL:  remaining connection slots are reserved for non-replication superuser co
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>foreman-foreman-service-puma-threads-min=300
-foreman-foreman-service-puma-threads-max=300
-foreman-foreman-service-puma-workers=120
-foreman-db-pool=300
-foreman-proxy-content-pulpcore-worker-count=10</pre>
+<pre>foreman_foreman_service_puma_threads_min: 300
+foreman_foreman_service_puma_threads_max: 300
+foreman_foreman_service_puma_workers: 120
+db_pool: 300
+foreman_proxy_content_pulpcore_worker-count: 10</pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>FIX</strong><br>
-According to official doc for performance tuning of Satellite 6.15 for system with 64GB RAM and 8 VCPUs we should have:<br></p>
+<p>According to official doc for performance tuning of Satellite 6.15 for a system with 64GB RAM and 8 VCPUs we should have:<br></p>
 </div>
 <div class="ulist">
 <ul>
@@ -194,8 +241,14 @@ According to official doc for performance tuning of Satellite 6.15 for system wi
 </ul>
 </div>
 <div class="paragraph">
-<p>Combining the above we may run:<br>
-<code># satellite-installer --foreman-foreman-service-puma-threads-min=16 --foreman-foreman-service-puma-threads-max=16 --foreman-foreman-service-puma-workers=12 --foreman-db-pool=16 --foreman-proxy-content-pulpcore-worker-count=8 --tuning medium</code></p>
+<p>Combining the above we may run:</p>
+</div>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">satellite-installer --foreman-foreman-service-puma-threads-min=16 --foreman-foreman-service-puma-threads-max=16 --foreman-foreman-service-puma-workers=12 --foreman-db-pool=16 --foreman-proxy-content-pulpcore-worker-count=8 --tuning medium</code></pre>
+</div>
+</div>
+</div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Guided solution</a></span>
