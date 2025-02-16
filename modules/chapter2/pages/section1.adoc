@@ -1,7 +1,30 @@
 = Guided solution (page 1 of 2)
+:experimental:
 
-*ISSUE* +
-- # hammer ping fails with: +
+== Objectives
+
+* Investigate what are the performance issues in satellite.
+* Solve the performance issue by fixing some parameters of satellite in the hands-on lab environment.
+
+== Instructions
+
+Run following instructions on `satellite` system with `root` as user.
+
+.Sample output:
+----
+[ec2-user@satellite ~]$ sudo su -
+[root@satellite ~]#
+----
+
+* ISSUE: Try running
++
+[source,bash,role=execute]
+----
+hammer ping
+----
+it fails with:
++
+.Sample output:
 ----
 candlepin:        
     Status:          FAIL 
@@ -14,21 +37,26 @@ candlepin_events:
     message:         Not running 
 ----
 
-- Widgets on satellite web ui are not loading properly. +
-- messages show the below which indicates issue with making connections to db as well +
+Also
+
+- Widgets on `satellite web ui` [the page presented after logging into satellite] are not loading properly. +
+- `/var/log/messages` show the below which indicates issue with making connections to db as well
++
+.Sample Output:
+----
 FATAL:  remaining connection slots are reserved for non-replication superuser connections
+----
 
 - Checking the parameters in `/etc/foreman-installer/scenarios.d/satellite-answers.yaml` we can see the below parameters misconfigured: +
 ----
-foreman-foreman-service-puma-threads-min=300 
-foreman-foreman-service-puma-threads-max=300
-foreman-foreman-service-puma-workers=120
-foreman-db-pool=300
-foreman-proxy-content-pulpcore-worker-count=10
+foreman_foreman_service_puma_threads_min: 300 
+foreman_foreman_service_puma_threads_max: 300
+foreman_foreman_service_puma_workers: 120
+db_pool: 300
+foreman_proxy_content_pulpcore_worker-count: 10
 ----
 
-*FIX* +
-According to official doc for performance tuning of Satellite 6.15 for system with 64GB RAM and 8 VCPUs we should have: +
+According to official doc for performance tuning of Satellite 6.15 for a system with 64GB RAM and 8 VCPUs we should have: +
 
 - medium tuning profile should be selected +
 - Recommended Puma Threads for both min & max is 16 +
@@ -36,5 +64,9 @@ According to official doc for performance tuning of Satellite 6.15 for system wi
 - Value for pulpcore worker should be max 8 +
 - The effective value of $db_pool is automatically set to equal $foreman::foreman_service_puma_threads_max +
 
-Combining the above we may run: +
-`# satellite-installer --foreman-foreman-service-puma-threads-min=16 --foreman-foreman-service-puma-threads-max=16 --foreman-foreman-service-puma-workers=12 --foreman-db-pool=16 --foreman-proxy-content-pulpcore-worker-count=8 --tuning medium`
+Combining the above we may run:
+
+[source,bash,role=execute]
+----
+satellite-installer --foreman-foreman-service-puma-threads-min=16 --foreman-foreman-service-puma-threads-max=16 --foreman-foreman-service-puma-workers=12 --foreman-db-pool=16 --foreman-proxy-content-pulpcore-worker-count=8 --tuning medium
+----

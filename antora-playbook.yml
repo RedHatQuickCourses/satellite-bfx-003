@@ -1,5 +1,5 @@
 site:
-  title: Red Hat Satellite Break-fix Practice 3 (FIXME)
+  title: Break-fix Practice Fixing & optimizing performance on Red Hat Satellite 6
   start_page: satellite-bfx-003::index.adoc
 
 content:
