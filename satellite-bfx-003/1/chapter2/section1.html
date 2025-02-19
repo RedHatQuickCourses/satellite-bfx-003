@@ -139,13 +139,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Investigate why web ui is not accessible and satellite becomes unresponsive occasionally in Red Hat Satellite 6.</p>
+<p>Investigate why logging into web ui shows error and satellite becomes unresponsive occasionally in Red Hat Satellite 6.</p>
+</li>
+<li>
+<p>Investigate why candlepin is down.</p>
 </li>
 <li>
 <p>Investigate why widgets on Satellite web ui are not loading.</p>
-</li>
-<li>
-<p>Investigate why candlepin is down and some commands may fail to execute.</p>
 </li>
 <li>
 <p>Solve the functionality and performance issues in the hands-on lab environment.</p>
@@ -199,14 +199,40 @@ candlepin_events:
 <div class="ulist">
 <ul>
 <li>
-<p>Widgets on <code>satellite web ui</code> [the page presented after logging into satellite] are not loading properly.<br></p>
+<p>Logging into satellite web ui shows:</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="_images/login.png" target="_blank" rel="noopener"><img src="_images/login.png" alt="login" width="100%" height="100%"></a>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Tip: click on the image to open in a new tab for better visibility</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Run the below command to fix the login issue and to bring up candlepin</p>
+</div>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">satellite-maintain service restart</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p><code>/var/log/messages</code> show the below which indicates issue with making connections to db as well</p>
+<p>But now widgets on <code>satellite web ui</code> [the page presented after logging into satellite web ui] are not loading properly.</p>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="_images/widget.png" target="_blank" rel="noopener"><img src="_images/widget.png" alt="widget" width="100%" height="100%"></a>
+</div>
+</div>
+</li>
+<li>
+<p><code>/var/log/foreman/production.log</code> show the below which indicates issue with making connections to db as well</p>
 <div class="listingblock">
 <div class="title">Sample Output:</div>
 <div class="content">
-<pre>FATAL:  remaining connection slots are reserved for non-replication superuser connections</pre>
+<pre>ActiveRecord::ConnectionNotEstablished FATAL:  remaining connection slots are reserved for non-replication superuser connections</pre>
 </div>
 </div>
 </li>
@@ -217,11 +243,11 @@ candlepin_events:
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>foreman_foreman_service_puma_threads_min: 300
-foreman_foreman_service_puma_threads_max: 300
-foreman_foreman_service_puma_workers: 120
-db_pool: 300
-foreman_proxy_content_pulpcore_worker-count: 10</pre>
+<pre>   foreman_foreman_service_puma_threads_min: 300
+   foreman_foreman_service_puma_threads_max: 300
+   foreman_foreman_service_puma_workers: 120
+   db_pool: 300
+   foreman_proxy_content_pulpcore_worker-count: 10</pre>
 </div>
 </div>
 <div class="paragraph">
