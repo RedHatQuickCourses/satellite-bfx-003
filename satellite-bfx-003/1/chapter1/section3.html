@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Guided Solution (page 1 of 2) :: Break-fix Practice: Fixing and Optimizing Performance on Red Hat Satellite 6</title>
-    <link rel="prev" href="index.html">
-    <link rel="next" href="section2.html">
+    <title>Check your work :: Break-fix Practice: Fixing and Optimizing Performance on Red Hat Satellite 6</title>
+    <link rel="prev" href="section2.html">
+    <link rel="next" href="../chapter2/index.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -55,16 +55,16 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../chapter1/index.html">What’s in this break-fix?</a>
+    <a class="nav-link" href="index.html">What’s in this break-fix?</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section1.html">Break-fix activity</a>
+    <a class="nav-link" href="section1.html">Break-fix activity</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section2.html">Break-fix Scenario</a>
+    <a class="nav-link" href="section2.html">Break-fix Scenario</a>
   </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../chapter1/section3.html">Check your work</a>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="section3.html">Check your work</a>
   </li>
 </ul>
   </li>
@@ -74,13 +74,13 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="index.html">Guided Solution</a>
+    <a class="nav-link" href="../chapter2/index.html">Guided Solution</a>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section1.html">Guided Solution (page 1 of 2)</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../chapter2/section1.html">Guided Solution (page 1 of 2)</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section2.html">Guided Solution (page 2 of 2)</a>
+    <a class="nav-link" href="../chapter2/section2.html">Guided Solution (page 2 of 2)</a>
   </li>
 </ul>
   </li>
@@ -122,8 +122,8 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Break-fix Practice: Fixing and Optimizing Performance on Red Hat Satellite 6</a></li>
-    <li><a href="index.html">Guided Solution</a></li>
-    <li><a href="section1.html">Guided Solution (page 1 of 2)</a></li>
+    <li><a href="index.html">What’s in this break-fix?</a></li>
+    <li><a href="section3.html">Check your work</a></li>
   </ul>
 </nav>
 </div>
@@ -132,133 +132,91 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Guided Solution (page 1 of 2)</h1>
+<h1 class="page">Check your work</h1>
 <div class="sect1">
-<h2 id="_objectives"><a class="anchor" href="#_objectives"></a>Objectives</h2>
+<h2 id="_follow_below_steps_in_the_lab_to_check_your_work"><a class="anchor" href="#_follow_below_steps_in_the_lab_to_check_your_work"></a>Follow below steps in the lab to check your work</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
 <li>
-<p>Investigate why web ui is not accessible and satellite becomes unresponsive occasionally in Red Hat Satellite 6.</p>
+<p>Widgets on home page of Satellite is working fine and satellite web ui is accessible.</p>
 </li>
 <li>
-<p>Investigate why widgets on Satellite web ui are not loading.</p>
+<p>Hammer ping &amp; satellite services are running fine.</p>
 </li>
 <li>
-<p>Investigate why candlepin is down and some commands may fail to execute.</p>
+<p>Correct performance tuning profile is set.</p>
 </li>
 <li>
-<p>Solve the functionality and performance issues in the hands-on lab environment.</p>
+<p>Performance defining parameters are correctly set for satellite according to the provided resources.</p>
+</li>
+<li>
+<p>Repos are syncing successfully on satellite.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_instructions"><a class="anchor" href="#_instructions"></a>Instructions</h2>
+<h2 id="_check_your_work_using_the_grading_script"><a class="anchor" href="#_check_your_work_using_the_grading_script"></a>Check your work using the grading script</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run following instructions on <code>satellite</code> system with <code>root</code> as user.</p>
+<p>After you have resolved the issue and met the success criteria, login to <code>bastion</code> system as <code>lab-user</code> user and run the grading script as shown here to check your work:</p>
 </div>
-<div class="listingblock">
-<div class="title">Sample output:</div>
-<div class="content">
-<pre>[ec2-user@satellite ~]$ sudo su -
-[root@satellite ~]#</pre>
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Run <code>hammer ping</code> command.</p>
 <div class="listingblock execute">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hammer ping</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">lab grade grade2</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Sample output:</div>
+<div class="title">Sample output</div>
 <div class="content">
-<pre>candlepin:
-    Status:          FAIL
-    Server Response: Message: Failed to open TCP connection to localhost:23443 (Connection refused - connect(2) for "localhost" port 23443)
-candlepin_auth:
-    Status:          FAIL
-    Server Response: Message: A backend service [ Candlepin ] is unreachable
-candlepin_events:
-    Status:          FAIL
-    message:         Not running</pre>
+<pre>[root@classroom ~]# lab grade grade2
+...
+...
+TASK [Checking result] *********************************************************************************************************************************************************************************************************************
+ok: [satellite] =&gt; {
+    "msg": "Success. your alphanumeric code for completion is XXXXXX"
+}
+...
+...</pre>
 </div>
 </div>
-</li>
-</ol>
 </div>
-<div class="paragraph">
-<p>Also</p>
+</div>
+<div class="sect1">
+<h2 id="_submit_the_completion_code"><a class="anchor" href="#_submit_the_completion_code"></a>Submit the completion code</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Skip this if not applicable for you.
+</td>
+</tr>
+</table>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Widgets on <code>satellite web ui</code> [the page presented after logging into satellite] are not loading properly.<br></p>
+<p>For RedHat internal audience: Submit that completion code <a href="https://link-to-appropriate-lms.com" target="_blank" rel="noopener">here</a> to receive a grade for this training</p>
 </li>
 <li>
-<p><code>/var/log/messages</code> show the below which indicates issue with making connections to db as well</p>
-<div class="listingblock">
-<div class="title">Sample Output:</div>
-<div class="content">
-<pre>FATAL:  remaining connection slots are reserved for non-replication superuser connections</pre>
-</div>
-</div>
-</li>
-<li>
-<p>Checking the parameters in <code>/etc/foreman-installer/scenarios.d/satellite-answers.yaml</code> we can see the below parameters misconfigured:<br></p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>foreman_foreman_service_puma_threads_min: 300
-foreman_foreman_service_puma_threads_max: 300
-foreman_foreman_service_puma_workers: 120
-db_pool: 300
-foreman_proxy_content_pulpcore_worker-count: 10</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>According to official doc for performance tuning of Satellite 6.15 for a system with 64GB RAM and 8 VCPUs we should have:<br></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>medium tuning profile should be selected<br></p>
-</li>
-<li>
-<p>Recommended Puma Threads for both min &amp; max is 16<br></p>
-</li>
-<li>
-<p>Recommended Puma Workers is 8 – 12<br></p>
-</li>
-<li>
-<p>Value for pulpcore worker should be max 8<br></p>
-</li>
-<li>
-<p>The effective value of $db_pool is automatically set to equal $foreman::foreman_service_puma_threads_max<br></p>
+<p>For RedHat partners: Submit that completion code <a href="https://link-to-appropriate-lms.com" target="_blank" rel="noopener">here</a> to receive a grade for this training</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Combining the above we may run:</p>
-</div>
-<div class="listingblock execute">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">satellite-installer --foreman-foreman-service-puma-threads-min=16 --foreman-foreman-service-puma-threads-max=16 --foreman-foreman-service-puma-workers=12 --foreman-db-pool=16 --foreman-proxy-content-pulpcore-worker-count=8 --tuning medium</code></pre>
-</div>
+<p>FIXME: Change the links in the above lines to the link for appropriate audience specific LMS where learner can provide completion code. Remove this block if submitting completion is not applicable.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">Guided Solution</a></span>
-  <span class="next"><a href="section2.html">Guided Solution (page 2 of 2)</a></span>
+  <span class="prev"><a href="section2.html">Break-fix Scenario</a></span>
+  <span class="next"><a href="../chapter2/index.html">Guided Solution</a></span>
 </nav>
 </article>
   </div>
