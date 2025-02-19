@@ -3,9 +3,9 @@
 
 == Objectives
 
-* Investigate why web ui is not accessible and satellite becomes unresponsive occasionally in Red Hat Satellite 6.
+* Investigate why logging into web ui shows error and satellite becomes unresponsive occasionally in Red Hat Satellite 6.
+* Investigate why candlepin is down.
 * Investigate why widgets on Satellite web ui are not loading.
-* Investigate why candlepin is down and some commands may fail to execute.
 * Solve the functionality and performance issues in the hands-on lab environment.
 
 == Instructions
@@ -40,21 +40,34 @@ candlepin_events:
 
 Also
 
-- Widgets on `satellite web ui` [the page presented after logging into satellite] are not loading properly. +
-- `/var/log/messages` show the below which indicates issue with making connections to db as well
+- Logging into satellite web ui shows:
++
+image::login.png[login,100%,100%,link=self,window=_blank]
+ Tip: click on the image to open in a new tab for better visibility
++
+Run the below command to fix the login issue and to bring up candlepin
++
+[source,bash,role=execute]
+----
+satellite-maintain service restart
+----
+- But now widgets on `satellite web ui` [the page presented after logging into satellite web ui] are not loading properly.
++
+image::widget.png[widget,100%,100%,link=self,window=_blank]
+- `/var/log/foreman/production.log` show the below which indicates issue with making connections to db as well
 +
 .Sample Output:
 ----
-FATAL:  remaining connection slots are reserved for non-replication superuser connections
+ActiveRecord::ConnectionNotEstablished FATAL:  remaining connection slots are reserved for non-replication superuser connections
 ----
 
 - Checking the parameters in `/etc/foreman-installer/scenarios.d/satellite-answers.yaml` we can see the below parameters misconfigured: +
 ----
-foreman_foreman_service_puma_threads_min: 300 
-foreman_foreman_service_puma_threads_max: 300
-foreman_foreman_service_puma_workers: 120
-db_pool: 300
-foreman_proxy_content_pulpcore_worker-count: 10
+   foreman_foreman_service_puma_threads_min: 300 
+   foreman_foreman_service_puma_threads_max: 300
+   foreman_foreman_service_puma_workers: 120
+   db_pool: 300
+   foreman_proxy_content_pulpcore_worker-count: 10
 ----
 
 According to official doc for performance tuning of Satellite 6.15 for a system with 64GB RAM and 8 VCPUs we should have: +
