@@ -1,10 +1,9 @@
 name: satellite-bfx-003
-title: Break-fix Practice Fixing & optimizing performance on Red Hat Satellite 6
+title: "Break-fix Practice: Fixing and Optimizing Performance on Red Hat Satellite 6"
 version: 1
 nav:
 - modules/ROOT/nav.adoc
 - modules/LABENV/nav.adoc
 - modules/chapter1/nav.adoc
 - modules/chapter2/nav.adoc
-- modules/chapter3/nav.adoc
 - modules/appendix/nav.adoc

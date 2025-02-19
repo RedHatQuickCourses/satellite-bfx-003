@@ -1,14 +1,17 @@
-= Fixing & optimizing performance on Red Hat Satellite 6
+= Fixing and Optimizing Performance on Red Hat Satellite 6
 :navtitle: Home
 
 == Introduction
 
+=== Red Hat Products
+
 - Red Hat Satellite 6
 
-*Break-fix:* Fixing & optimizing performance on Red Hat Satellite 6
+=== Break-fix Practice: Fixing and Optimizing Performance on Red Hat Satellite 6
 
 *Description:*
-This break-fix training simulates a problem with performace of the satellite . You'll investigate and solve the problem in a hands-on lab environment to complete the training.
+This break-fix training simulates a problem with performance of the satellite.
+You'll investigate and solve the problem in a hands-on lab environment to complete the training.
 
 NOTE: After ordering the lab run the lab preparation instruction only *ONCE* .
 

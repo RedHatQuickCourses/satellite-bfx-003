@@ -6,15 +6,13 @@
 
 The provided Satellite server has been reported to have issues like:
 
-- Web ui not accessible and satellite becomes unresponsive occasionally. +
-- Widgets on Satellite web ui are not loading +
-- Candlepin is down & some commands may fail to execute +
-Fixing certain parameters in satellite & using an appropriate tuning profile should be done to restore functionality & optimize performance.
-You may need to reboot the satellite from web ui of lab interface in case it becomes unresponsive.
+- Web ui is not accessible and satellite becomes unresponsive occasionally
+- Widgets on Satellite web ui are not loading
+- Candlepin is down and some commands may fail to execute
 
 **What you should already know:**
 
-- This training assumes that you are a Red Hat Certified System Administrator (RHCSA) or have equivalent experience administrating Red Hat Enterprise Linux 7 or 8. +
+- A Red Hat Certified System Administrator (RHCSA) or have equivalent experience administrating Red Hat Enterprise Linux 7 or 8.
 - Administering Red Hat Satellite 6
 
 **How break-fix training works:**

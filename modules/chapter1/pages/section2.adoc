@@ -1,39 +1,56 @@
-= Check your work
+= Break-fix Scenario
 
-== Follow below steps in the lab to check your work
+The provided satellite server has been reported to have few issues.
+The satellite web ui is not accessible and satellite becomes unresponsive occasionally.
+Widgets on satellite web ui are not loading.
+Candlepin is down and some commands may fail to execute.
+Fixing certain parameters in satellite and using an appropriate tuning profile should be done to restore functionality and optimize performance.
+You may need to reboot the satellite from web ui of lab interface in case it becomes unresponsive.
+Your job is to investigate the issue and ensure satellite server is working properly.
 
-- Widgets on home page of Satellite is working fine and satellite web ui is accessible. +
-- Hammer ping & satellite services are running fine. +
-- Correct performace tuning profile is set. +
-- Performance defining parameters are correctly set for satellite according to the provided resources. +
-- Repos are syncing successfully on satellite.
+== Objectives
 
-== Check your work using the grading script
+* Investigate why web ui is not accessible and satellite becomes unresponsive occasionally in Red Hat Satellite 6.
+* Investigate why widgets on Satellite web ui are not loading.
+* Investigate why candlepin is down and some commands may fail to execute.
+* Solve the functionality and performance issues in the hands-on lab environment.
 
-After you have resolved the issue and met the success criteria, login to `FIXME` system as `FIXME` user and run the grading script as shown here to check your work:
+== Recreate Scenario
+
+To recreate this scenario, run the `lab` script on `bastion` server.
 
 [source,bash,role=execute]
 ----
-break-fix-script grade
+lab break breakfix2
 ----
 
 .Sample output
 ----
-[root@classroom ~]# break-fix-script grade
-Initiating break-fix-script with option grade
-Grading.  Please wait.
-Success.
-COMPLETION CODE: <check your output for this value>
-Completed break-fix-script with option grade successfully
+[lab-user@bastion ~]$ lab break breakfix2
+Initiating /usr/local/bin/lab with option(s) break breakfix2
+Completed /usr/local/bin/lab with option(s) break breakfix2 successfully
 ----
 
-FIXME: Remove the below block if no grading script is provided to check the work in the break-fix activity. In this case make sure you use the above block to provide step-by-step instructions learner can follow to check their work.
+[NOTE]
+It may take 5-10 minutes to complete.
 
-== Submit the completion code
+== Success Criteria
 
-NOTE: Skip this if not applicable for you.
+Ensure the `satellite-maintain upgrade run` command results in success and the satellite `6.15.4` server upgrade to `6.15.z`.
 
-- For RedHat internal audience: Submit that completion code https://link-to-appropriate-lms.com[here,window=_blank] to receive a grade for this training
-- For RedHat partners: Submit that completion code https://link-to-appropriate-lms.com[here,window=_blank] to receive a grade for this training
+[source,bash,role=execute]
+----
+satellite-maintain upgrade run --target-version 6.15.z
+----
 
-FIXME: Change the links in the above lines to the link for appropriate audience specific LMS where learner can provide completion code. Remove this block if submitting completion is not applicable.
+.Sample output:
+----
+...
+...
+2025-02-11 07:59:28 [NOTICE] [configure] System configuration has finished.
+  Success!
+  * Satellite is running at https://satellite.xxx.yyy
+...
+...
+Upgrade finished.
+----
