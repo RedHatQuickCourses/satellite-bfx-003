@@ -1,4 +1,4 @@
-= Guided Solution (page 1 of 2)
+= Guided Solution
 :experimental:
 
 == Objectives
@@ -18,7 +18,7 @@ Run following instructions on `satellite` system with `root` as user.
 [root@satellite ~]#
 ----
 
-. Run `hammer ping` command.
+. Run the `hammer ping` command.
 +
 [source,bash,role=execute]
 ----
@@ -38,49 +38,109 @@ candlepin_events:
     message:         Not running
 ----
 
-Also
-
-- Logging into satellite web ui shows:
+. Logging into satellite web ui, results with following error:
 +
 image::login.png[login,100%,100%,link=self,window=_blank]
  Tip: click on the image to open in a new tab for better visibility
-+
-Run the below command to fix the login issue and to bring up candlepin
+
+. Run the `satellite-maintain service restart` command to fix the login issue and to bring up candlepin.
 +
 [source,bash,role=execute]
 ----
 satellite-maintain service restart
 ----
-- But now widgets on `satellite web ui` [the page presented after logging into satellite web ui] are not loading properly.
+
+. But now widgets on `satellite web ui` (the page presented after logging into satellite web ui) are not loading properly.
 +
 image::widget.png[widget,100%,100%,link=self,window=_blank]
-- `/var/log/foreman/production.log` show the below which indicates issue with making connections to db as well
+
+. The `/var/log/foreman/production.log` file indicates issue with making connections to db as well.
 +
 .Sample Output:
 ----
-ActiveRecord::ConnectionNotEstablished FATAL:  remaining connection slots are reserved for non-replication superuser connections
+[root@satellite ~]# cat /var/log/foreman/production.log | grep FATAL | head -1
+ 8665e885 | ActiveRecord::ConnectionNotEstablished (FATAL:  remaining connection slots are reserved for non-replication superuser connections
 ----
 
-- Checking the parameters in `/etc/foreman-installer/scenarios.d/satellite-answers.yaml` we can see the below parameters misconfigured: +
+. Review the parameters in `/etc/foreman-installer/scenarios.d/satellite-answers.yaml` and notice that the following parameters are misconfigured:
++
 ----
-   foreman_foreman_service_puma_threads_min: 300 
+   foreman_foreman_service_puma_threads_min: 300
    foreman_foreman_service_puma_threads_max: 300
    foreman_foreman_service_puma_workers: 120
    db_pool: 300
-   foreman_proxy_content_pulpcore_worker-count: 10
+   pulpcore_worker_count: 10
 ----
 
-According to official doc for performance tuning of Satellite 6.15 for a system with 64GB RAM and 8 VCPUs we should have: +
+. According to official Red Hat documentation for performance tuning of Satellite 6.15 for a system with 64GB RAM and 8 VCPUs you should have:
+.. medium tuning profile should be selected
+.. Recommended Puma Threads for both min & max is 16
+.. Recommended Puma Workers is 8 – 12
+.. Value for pulpcore worker should be max 8
+.. The effective value of $db_pool is automatically set to equal $foreman::foreman_service_puma_threads_max
 
-- medium tuning profile should be selected +
-- Recommended Puma Threads for both min & max is 16 +
-- Recommended Puma Workers is 8 – 12 +
-- Value for pulpcore worker should be max 8 +
-- The effective value of $db_pool is automatically set to equal $foreman::foreman_service_puma_threads_max +
-
-Combining the above we may run:
-
+. Combining the above we may run:
++
 [source,bash,role=execute]
 ----
 satellite-installer --foreman-foreman-service-puma-threads-min=16 --foreman-foreman-service-puma-threads-max=16 --foreman-foreman-service-puma-workers=12 --foreman-db-pool=16 --foreman-proxy-content-pulpcore-worker-count=8 --tuning medium
+----
+
+. Run `satellite-maintain service restart` command to reflect the changes.
++
+[source,bash,role=execute]
+----
+satellite-maintain service restart
+----
++
+.Sample Output:
+----
+Running Restart Services
+================================================================================
+Check if command is run as root user:                                 [OK]
+--------------------------------------------------------------------------------
+Restart applicable services:
+
+Restarting the following service(s):
+redis, postgresql, pulpcore-api, pulpcore-content, pulpcore-worker@1.service, pulpcore-worker@2.service, pulpcore-worker@3.service, pulpcore-worker@4.service, pulpcore-worker@5.service, pulpcore-worker@6.service, pulpcore-worker@7.service, pulpcore-worker@8.service, tomcat, dynflow-sidekiq@orchestrator, foreman, httpd, dynflow-sidekiq@worker-1, dynflow-sidekiq@worker-hosts-queue-1, foreman-proxy
+| All services restarted                                              [OK]
+--------------------------------------------------------------------------------
+----
+
+. Now you should be able to see all widgets.
+Run `hammer ping` command to verify it.
++
+.Sample Output:
+----
+[root@satellite ~]# hammer ping
+database:
+    Status:          ok
+    Server Response: Duration: 0ms
+cache:
+    servers:
+     1) Status:          ok
+        Server Response: Duration: 0ms
+candlepin:
+    Status:          ok
+    Server Response: Duration: 16ms
+candlepin_auth:
+    Status:          ok
+    Server Response: Duration: 14ms
+candlepin_events:
+    Status:          ok
+    message:         0 Processed, 0 Failed
+    Server Response: Duration: 0ms
+katello_events:
+    Status:          ok
+    message:         0 Processed, 0 Failed
+    Server Response: Duration: 0ms
+pulp3:
+    Status:          ok
+    Server Response: Duration: 166ms
+pulp3_content:
+    Status:          ok
+    Server Response: Duration: 35ms
+foreman_tasks:
+    Status:          ok
+    Server Response: Duration: 2ms
 ----
