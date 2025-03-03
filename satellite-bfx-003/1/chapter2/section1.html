@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Guided Solution (page 1 of 2) :: Break-fix Practice: Fixing and Optimizing Performance on Red Hat Satellite 6</title>
+    <title>Guided Solution :: Break-fix Practice: Fixing and Optimizing Performance on Red Hat Satellite 6</title>
     <link rel="prev" href="index.html">
-    <link rel="next" href="section2.html">
+    <link rel="next" href="../appendix/appendix.html">
     <meta name="generator" content="Antora 3.1.3">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
@@ -77,10 +77,7 @@
     <a class="nav-link" href="index.html">Guided Solution</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="section1.html">Guided Solution (page 1 of 2)</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="section2.html">Guided Solution (page 2 of 2)</a>
+    <a class="nav-link" href="section1.html">Guided Solution</a>
   </li>
 </ul>
   </li>
@@ -123,7 +120,7 @@
   <ul>
     <li><a href="../index.html">Break-fix Practice: Fixing and Optimizing Performance on Red Hat Satellite 6</a></li>
     <li><a href="index.html">Guided Solution</a></li>
-    <li><a href="section1.html">Guided Solution (page 1 of 2)</a></li>
+    <li><a href="section1.html">Guided Solution</a></li>
   </ul>
 </nav>
 </div>
@@ -132,7 +129,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Guided Solution (page 1 of 2)</h1>
+<h1 class="page">Guided Solution</h1>
 <div class="sect1">
 <h2 id="_objectives"><a class="anchor" href="#_objectives"></a>Objectives</h2>
 <div class="sectionbody">
@@ -170,7 +167,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run <code>hammer ping</code> command.</p>
+<p>Run the <code>hammer ping</code> command.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">hammer ping</code></pre>
@@ -191,15 +188,8 @@ candlepin_events:
 </div>
 </div>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Also</p>
-</div>
-<div class="ulist">
-<ul>
 <li>
-<p>Logging into satellite web ui shows:</p>
+<p>Logging into satellite web ui, results with following error:</p>
 <div class="imageblock">
 <div class="content">
 <a class="image" href="_images/login.png" target="_blank" rel="noopener"><img src="_images/login.png" alt="login" width="100%" height="100%"></a>
@@ -210,9 +200,9 @@ candlepin_events:
 <pre>Tip: click on the image to open in a new tab for better visibility</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Run the below command to fix the login issue and to bring up candlepin</p>
-</div>
+</li>
+<li>
+<p>Run the <code>satellite-maintain service restart</code> command to fix the login issue and to bring up candlepin.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">satellite-maintain service restart</code></pre>
@@ -220,7 +210,7 @@ candlepin_events:
 </div>
 </li>
 <li>
-<p>But now widgets on <code>satellite web ui</code> [the page presented after logging into satellite web ui] are not loading properly.</p>
+<p>But now widgets on <code>satellite web ui</code> (the page presented after logging into satellite web ui) are not loading properly.</p>
 <div class="imageblock">
 <div class="content">
 <a class="image" href="_images/widget.png" target="_blank" rel="noopener"><img src="_images/widget.png" alt="widget" width="100%" height="100%"></a>
@@ -228,63 +218,127 @@ candlepin_events:
 </div>
 </li>
 <li>
-<p><code>/var/log/foreman/production.log</code> show the below which indicates issue with making connections to db as well</p>
+<p>The <code>/var/log/foreman/production.log</code> file indicates issue with making connections to db as well.</p>
 <div class="listingblock">
 <div class="title">Sample Output:</div>
 <div class="content">
-<pre>ActiveRecord::ConnectionNotEstablished FATAL:  remaining connection slots are reserved for non-replication superuser connections</pre>
+<pre>[root@satellite ~]# cat /var/log/foreman/production.log | grep FATAL | head -1
+ 8665e885 | ActiveRecord::ConnectionNotEstablished (FATAL:  remaining connection slots are reserved for non-replication superuser connections</pre>
 </div>
 </div>
 </li>
 <li>
-<p>Checking the parameters in <code>/etc/foreman-installer/scenarios.d/satellite-answers.yaml</code> we can see the below parameters misconfigured:<br></p>
-</li>
-</ul>
-</div>
+<p>Review the parameters in <code>/etc/foreman-installer/scenarios.d/satellite-answers.yaml</code> and notice that the following parameters are misconfigured:</p>
 <div class="listingblock">
 <div class="content">
 <pre>   foreman_foreman_service_puma_threads_min: 300
    foreman_foreman_service_puma_threads_max: 300
    foreman_foreman_service_puma_workers: 120
    db_pool: 300
-   foreman_proxy_content_pulpcore_worker-count: 10</pre>
+   pulpcore_worker_count: 10</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>According to official doc for performance tuning of Satellite 6.15 for a system with 64GB RAM and 8 VCPUs we should have:<br></p>
+</li>
+<li>
+<p>According to official Red Hat documentation for performance tuning of Satellite 6.15 for a system with 64GB RAM and 8 VCPUs you should have:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>medium tuning profile should be selected</p>
+</li>
+<li>
+<p>Recommended Puma Threads for both min &amp; max is 16</p>
+</li>
+<li>
+<p>Recommended Puma Workers is 8 – 12</p>
+</li>
+<li>
+<p>Value for pulpcore worker should be max 8</p>
+</li>
+<li>
+<p>The effective value of $db_pool is automatically set to equal $foreman::foreman_service_puma_threads_max</p>
+</li>
+</ol>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>medium tuning profile should be selected<br></p>
 </li>
 <li>
-<p>Recommended Puma Threads for both min &amp; max is 16<br></p>
-</li>
-<li>
-<p>Recommended Puma Workers is 8 – 12<br></p>
-</li>
-<li>
-<p>Value for pulpcore worker should be max 8<br></p>
-</li>
-<li>
-<p>The effective value of $db_pool is automatically set to equal $foreman::foreman_service_puma_threads_max<br></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
 <p>Combining the above we may run:</p>
-</div>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">satellite-installer --foreman-foreman-service-puma-threads-min=16 --foreman-foreman-service-puma-threads-max=16 --foreman-foreman-service-puma-workers=12 --foreman-db-pool=16 --foreman-proxy-content-pulpcore-worker-count=8 --tuning medium</code></pre>
 </div>
 </div>
+</li>
+<li>
+<p>Run <code>satellite-maintain service restart</code> command to reflect the changes.</p>
+<div class="listingblock execute">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">satellite-maintain service restart</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Sample Output:</div>
+<div class="content">
+<pre>Running Restart Services
+================================================================================
+Check if command is run as root user:                                 [OK]
+--------------------------------------------------------------------------------
+Restart applicable services:
+
+Restarting the following service(s):
+redis, postgresql, pulpcore-api, pulpcore-content, pulpcore-worker@1.service, pulpcore-worker@2.service, pulpcore-worker@3.service, pulpcore-worker@4.service, pulpcore-worker@5.service, pulpcore-worker@6.service, pulpcore-worker@7.service, pulpcore-worker@8.service, tomcat, dynflow-sidekiq@orchestrator, foreman, httpd, dynflow-sidekiq@worker-1, dynflow-sidekiq@worker-hosts-queue-1, foreman-proxy
+| All services restarted                                              [OK]
+--------------------------------------------------------------------------------</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Now you should be able to see all widgets.
+Run <code>hammer ping</code> command to verify it.</p>
+<div class="listingblock">
+<div class="title">Sample Output:</div>
+<div class="content">
+<pre>[root@satellite ~]# hammer ping
+database:
+    Status:          ok
+    Server Response: Duration: 0ms
+cache:
+    servers:
+     1) Status:          ok
+        Server Response: Duration: 0ms
+candlepin:
+    Status:          ok
+    Server Response: Duration: 16ms
+candlepin_auth:
+    Status:          ok
+    Server Response: Duration: 14ms
+candlepin_events:
+    Status:          ok
+    message:         0 Processed, 0 Failed
+    Server Response: Duration: 0ms
+katello_events:
+    Status:          ok
+    message:         0 Processed, 0 Failed
+    Server Response: Duration: 0ms
+pulp3:
+    Status:          ok
+    Server Response: Duration: 166ms
+pulp3_content:
+    Status:          ok
+    Server Response: Duration: 35ms
+foreman_tasks:
+    Status:          ok
+    Server Response: Duration: 2ms</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="index.html">Guided Solution</a></span>
-  <span class="next"><a href="section2.html">Guided Solution (page 2 of 2)</a></span>
+  <span class="next"><a href="../appendix/appendix.html">Appendix</a></span>
 </nav>
 </article>
   </div>
