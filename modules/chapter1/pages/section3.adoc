@@ -24,17 +24,8 @@ lab grade grade2
 ...
 TASK [Checking result] *********************************************************************************************************************************************************************************************************************
 ok: [satellite] => {
-    "msg": "Success. your alphanumeric code for completion is XXXXXX"
+    "msg": "Success. your alphanumeric code for completion is XXXXXXXXX"
 }
 ...
 ...
 ----
-
-== Submit the completion code
-
-NOTE: Skip this if not applicable for you.
-
-- For RedHat internal audience: Submit that completion code https://link-to-appropriate-lms.com[here,window=_blank] to receive a grade for this training
-- For RedHat partners: Submit that completion code https://link-to-appropriate-lms.com[here,window=_blank] to receive a grade for this training
-
-FIXME: Change the links in the above lines to the link for appropriate audience specific LMS where learner can provide completion code. Remove this block if submitting completion is not applicable.

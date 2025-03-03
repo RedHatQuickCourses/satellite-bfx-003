@@ -36,21 +36,39 @@ It may take 5-10 minutes to complete.
 
 == Success Criteria
 
-Ensure the `satellite-maintain upgrade run` command results in success and the satellite `6.15.4` server upgrade to `6.15.z`.
+Ensure you are able to login to satellite web ui and see all widgets. You can verify it by running `hammer ping` command.
 
-[source,bash,role=execute]
+.Sample Output:
 ----
-satellite-maintain upgrade run --target-version 6.15.z
-----
-
-.Sample output:
-----
-...
-...
-2025-02-11 07:59:28 [NOTICE] [configure] System configuration has finished.
-  Success!
-  * Satellite is running at https://satellite.xxx.yyy
-...
-...
-Upgrade finished.
+[root@satellite ~]# hammer ping
+database:
+    Status:          ok
+    Server Response: Duration: 0ms
+cache:
+    servers:
+     1) Status:          ok
+        Server Response: Duration: 0ms
+candlepin:
+    Status:          ok
+    Server Response: Duration: 16ms
+candlepin_auth:
+    Status:          ok
+    Server Response: Duration: 14ms
+candlepin_events:
+    Status:          ok
+    message:         0 Processed, 0 Failed
+    Server Response: Duration: 0ms
+katello_events:
+    Status:          ok
+    message:         0 Processed, 0 Failed
+    Server Response: Duration: 0ms
+pulp3:
+    Status:          ok
+    Server Response: Duration: 166ms
+pulp3_content:
+    Status:          ok
+    Server Response: Duration: 35ms
+foreman_tasks:
+    Status:          ok
+    Server Response: Duration: 2ms
 ----

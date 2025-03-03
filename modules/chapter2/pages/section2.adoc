@@ -1,3 +1,0 @@
-= Guided Solution (page 2 of 2)
-
-Once the provided resolution step is applied, the satellite should be stable and any tasks can be performed successfully.
