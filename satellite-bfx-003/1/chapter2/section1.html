@@ -136,7 +136,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Investigate why logging into web ui shows error and satellite becomes unresponsive occasionally in Red Hat Satellite 6.</p>
+<p>Investigate why logging into the web ui shows error and satellite becomes unresponsive occasionally in Red Hat Satellite 6.</p>
 </li>
 <li>
 <p>Investigate why candlepin is down.</p>
@@ -155,7 +155,7 @@
 <h2 id="_instructions"><a class="anchor" href="#_instructions"></a>Instructions</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Run following instructions on <code>satellite</code> system with <code>root</code> as user.</p>
+<p>Run the following instructions on <code>satellite</code> system with <code>root</code> as the user.</p>
 </div>
 <div class="listingblock">
 <div class="title">Sample output:</div>
@@ -189,7 +189,7 @@ candlepin_events:
 </div>
 </li>
 <li>
-<p>Logging into satellite web ui, results with following error:</p>
+<p>Logging into satellite web ui, results with the following error:</p>
 <div class="imageblock">
 <div class="content">
 <a class="image" href="_images/login.png" target="_blank" rel="noopener"><img src="_images/login.png" alt="login" width="100%" height="100%"></a>
@@ -218,7 +218,7 @@ candlepin_events:
 </div>
 </li>
 <li>
-<p>The <code>/var/log/foreman/production.log</code> file indicates issue with making connections to db as well.</p>
+<p>The <code>/var/log/foreman/production.log</code> file indicates an issue with making connections to db as well.</p>
 <div class="listingblock">
 <div class="title">Sample Output:</div>
 <div class="content">
@@ -270,7 +270,7 @@ candlepin_events:
 </div>
 </li>
 <li>
-<p>Run <code>satellite-maintain service restart</code> command to reflect the changes.</p>
+<p>Run the <code>satellite-maintain service restart</code> command to reflect the changes.</p>
 <div class="listingblock execute">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">satellite-maintain service restart</code></pre>
@@ -294,7 +294,7 @@ redis, postgresql, pulpcore-api, pulpcore-content, pulpcore-worker@1.service, pu
 </li>
 <li>
 <p>Now you should be able to see all widgets.
-Run <code>hammer ping</code> command to verify it.</p>
+Run the <code>hammer ping</code> command to verify it.</p>
 <div class="listingblock">
 <div class="title">Sample Output:</div>
 <div class="content">
