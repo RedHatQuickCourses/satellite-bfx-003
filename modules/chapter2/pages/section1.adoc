@@ -3,14 +3,14 @@
 
 == Objectives
 
-* Investigate why logging into web ui shows error and satellite becomes unresponsive occasionally in Red Hat Satellite 6.
+* Investigate why logging into the web ui shows error and satellite becomes unresponsive occasionally in Red Hat Satellite 6.
 * Investigate why candlepin is down.
 * Investigate why widgets on Satellite web ui are not loading.
 * Solve the functionality and performance issues in the hands-on lab environment.
 
 == Instructions
 
-Run following instructions on `satellite` system with `root` as user.
+Run the following instructions on `satellite` system with `root` as the user.
 
 .Sample output:
 ----
@@ -38,7 +38,7 @@ candlepin_events:
     message:         Not running
 ----
 
-. Logging into satellite web ui, results with following error:
+. Logging into satellite web ui, results with the following error:
 +
 image::login.png[login,100%,100%,link=self,window=_blank]
  Tip: click on the image to open in a new tab for better visibility
@@ -54,7 +54,7 @@ satellite-maintain service restart
 +
 image::widget.png[widget,100%,100%,link=self,window=_blank]
 
-. The `/var/log/foreman/production.log` file indicates issue with making connections to db as well.
+. The `/var/log/foreman/production.log` file indicates an issue with making connections to db as well.
 +
 .Sample Output:
 ----
@@ -86,7 +86,7 @@ image::widget.png[widget,100%,100%,link=self,window=_blank]
 satellite-installer --foreman-foreman-service-puma-threads-min=16 --foreman-foreman-service-puma-threads-max=16 --foreman-foreman-service-puma-workers=12 --foreman-db-pool=16 --foreman-proxy-content-pulpcore-worker-count=8 --tuning medium
 ----
 
-. Run `satellite-maintain service restart` command to reflect the changes.
+. Run the `satellite-maintain service restart` command to reflect the changes.
 +
 [source,bash,role=execute]
 ----
@@ -108,7 +108,7 @@ redis, postgresql, pulpcore-api, pulpcore-content, pulpcore-worker@1.service, pu
 ----
 
 . Now you should be able to see all widgets.
-Run `hammer ping` command to verify it.
+Run the `hammer ping` command to verify it.
 +
 .Sample Output:
 ----

@@ -1,16 +1,16 @@
 = Check your work
 
-== Follow below steps in the lab to check your work
+== Follow the below steps in the lab to check your work
 
-- Widgets on home page of Satellite is working fine and satellite web ui is accessible.
+- Widgets on the home page of Satellite are working fine and satellite web ui is accessible.
 - Hammer ping & satellite services are running fine.
-- Correct performance tuning profile is set.
-- Performance defining parameters are correctly set for satellite according to the provided resources.
+- The correct performance tuning profile is set.
+- Performance-defining parameters are correctly set for satellite according to the provided resources.
 - Repos are syncing successfully on satellite.
 
 == Check your work using the grading script
 
-After you have resolved the issue and met the success criteria, login to `bastion` system as `lab-user` user and run the grading script as shown here to check your work:
+After you have resolved the issue and met the success criteria, log in to the `bastion` system as a `lab-user` user and run the grading script as shown here to check your work:
 
 [source,bash,role=execute]
 ----

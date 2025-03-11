@@ -10,8 +10,8 @@
 === Break-fix Practice: Fixing and Optimizing Performance on Red Hat Satellite 6
 
 *Description:*
-This break-fix training simulates a problem with performance of the satellite.
+This break-fix training simulates a problem with the performance of the satellite.
 You'll investigate and solve the problem in a hands-on lab environment to complete the training.
 
-NOTE: After ordering the lab run the lab preparation instruction only *ONCE* .
+NOTE: After ordering the lab run the lab preparation instruction only *ONCE*.
 

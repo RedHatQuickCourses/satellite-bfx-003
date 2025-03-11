@@ -1,12 +1,12 @@
 = Break-fix Scenario
 
-The provided satellite server has been reported to have few issues.
+The provided satellite server has been reported to have a few issues.
 The satellite web ui is not accessible and satellite becomes unresponsive occasionally.
 Widgets on satellite web ui are not loading.
 Candlepin is down and some commands may fail to execute.
 Fixing certain parameters in satellite and using an appropriate tuning profile should be done to restore functionality and optimize performance.
-You may need to reboot the satellite from web ui of lab interface in case it becomes unresponsive.
-Your job is to investigate the issue and ensure satellite server is working properly.
+You may need to reboot the satellite from web ui of the lab interface in case it becomes unresponsive.
+Your job is to investigate the issue and ensure that the satellite server is working properly.
 
 == Objectives
 
@@ -17,7 +17,7 @@ Your job is to investigate the issue and ensure satellite server is working prop
 
 == Recreate Scenario
 
-To recreate this scenario, run the `lab` script on `bastion` server.
+To recreate this scenario, run the `lab` script on the `bastion` server.
 
 [source,bash,role=execute]
 ----
@@ -36,7 +36,7 @@ It may take 5-10 minutes to complete.
 
 == Success Criteria
 
-Ensure you are able to login to satellite web ui and see all widgets. You can verify it by running `hammer ping` command.
+Ensure you are able to log in to satellite web ui and see all widgets. You can verify it by running the `hammer ping` command.
 
 .Sample Output:
 ----
